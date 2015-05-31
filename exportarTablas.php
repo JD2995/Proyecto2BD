@@ -2,7 +2,7 @@
 	
 	require_once("Conexion/conexion.php");
 	$conexion = new conexion();
-	$conexion->setParameters("localhost","Kevin","Kev19061994+","kevin");   // aqui van los parametros de la conexion
+	$conexion->setParameters("localhost","Betty","Na22na10","progra_2");   // aqui van los parametros de la conexion
     $conexion->setConnection();                                             // una vez inicializados los parametros se establece la conexion
     $resultadoTablas = $conexion->getTablas();
     $resultadoTablas->data_seek(0);

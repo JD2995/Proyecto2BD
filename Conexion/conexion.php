@@ -38,8 +38,19 @@
 			}
 		}
 
+		public function registrarPersona($nombre,$primer_apellido,segundo_apellido,$listaTelefonos,$listaCorreos,$tipoUsuario,$nombreUsuario,$contrasena){
+			$consulta = "call registrarPersona('".$nombre."',)";
+		}
 		public function getTablas(){
 			$consulta = "call nombreTablas()";
+			/*
+				$nombre = $_POST["nombre"];
+				.
+				.
+				.
+				$consulta = "call nombreProcedimiento('".$nombre."',........)";
+				$resultado = 
+			 */
 			$resultado = $this->id->query($consulta);
 			if(!$resultado){
 				return NULL;
