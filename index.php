@@ -17,8 +17,9 @@
 	} 
 	echo "Connected successfully";
 	include_once("funciones.php");
-	guardarImagen("hola.jpg","prueba");
+	//guardarImagen("hola.jpg","prueba");
+	
 	?>
-	<img src="Imagenes/prueba.php">
+	<img src="Imagenes/19.php">
 	
 </html>
