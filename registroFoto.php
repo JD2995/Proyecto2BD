@@ -71,8 +71,20 @@
 			</div>
 		</div>
 		
+		<?php
+			$conn= $GLOBALS['conn'];
+			if (!($resul = $conn->query("SELECT Auto_increment FROM information_schema.tables WHERE table_name='foto_ave'"))) {
+				echo "No cargo";
+			}
+			else{
+				$tupla= $resul->fetch_array(MYSQLI_BOTH);
+				$ultimoID= $tupla[0];
+			}
+			echo $ultimoID;
+		?>
+		
 		<div class="row">
-		<form enctype="multipart/form-data" action="cargarImagen.php" method="post" name="catalogos" onsubmit="return registrarFoto()">
+		<form enctype="multipart/form-data" <?php echo "action=\"cargarImagen.php?id=".$ultimoID."\"";?>  method="post" name="catalogos" onsubmit="return registrarFoto()">
 			<div class=col-sm-1></div>
 			<div class=col-sm-4>
 				
@@ -121,10 +133,11 @@
 					Seleccione una imagen:
 					<input type="file" name="fileToUpload" id="fileToUpload" onchange="mostrarPreview(this)">
 					<br>
-					<label for="sel1">Calificar como mejor fotografía:</label>
-					<img src="Imagenes/no_favorito.png" name="favorito" onclick="cambiarFavorito()">
+					<div class="checkbox">
+					  <label><input type="checkbox" value="favorito" name="favorito">Insertar a mejores fotografías</label>
+					</div>
 					<br>
-					<input type="submit" class="btn btn-default" value="Upload Image" name="submit">
+					<input type="submit" class="btn btn-default" value="Ingresar fotografía" name="submit">
 				
 				<br>
 			</div>

@@ -151,31 +151,14 @@ function mostrarPreview(input) {
 	}
 }
 
-
-//Función que cambia la imagen de favorito del registro
-function cambiarFavorito()
-{
-	var imagen= document.catalogos.favorito;
-	var nombreIndex = imagen.src.lastIndexOf("/") + 1;
-	var nombre = imagen.src.substr(nombreIndex);
-	if(nombre == "favorito.png"){
-		imagen.src="Imagenes/no_favorito.png";
-	}
-	else{
-		imagen.src="Imagenes/favorito.png";
-	}
-};
-
 //Función que registrar la foto en la BD
 function registrarFoto(){
 	var especie= document.catalogos.especie.value;
 	var favorito;
 	//Obtener el id de la persona;
-	var imagenFavorito= document.catalogos.favorito.src;
-	var nombreIndex= imagenFavorito.lastIndexOf("/")+1;
-	var nombre= imagenFavorito.substr(nombreIndex);
-	//Analiza si la imagen fue califacada como favorito
-	if(nombre == "favorito.png"){
+	var boxFavorito= document.catalogos.favorito.checked;
+	//Analiza si la imagen fue calificada como favorito
+	if(boxFavorito){
 		favorito= 1;
 	}
 	else{
