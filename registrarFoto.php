@@ -15,6 +15,19 @@
 		while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
 			$especie_id=$tupla[0];
 		}
-		registrarFoto($estado,$especie_id,$persona);
+		//Si se registro con éxito la foto
+		if(registrarFoto($estado,$especie_id,$persona)){
+			$archivo = fopen("Imagenes/finalizo.txt", "w") or die("Unable to open file!");
+			$texto= "1";
+			fwrite($archivo, $texto);
+			fclose($archivo);
+		}
+		//Si ocurrió un error durante el registro
+		else{
+			$archivo = fopen("Imagenes/finalizo.txt", "w") or die("Unable to open file!");
+			$texto= "2";
+			fwrite($archivo, $texto);
+			fclose($archivo);
+		}
 	}
 ?>

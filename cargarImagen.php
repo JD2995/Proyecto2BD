@@ -4,7 +4,6 @@
 	<meta charset="utf-8">
 </head>
 </body>
-<script>registrarFoto()</script>
 <?php
 include("funciones.php");
 $target_dir = "Imagenes/";
@@ -32,17 +31,30 @@ if ($uploadOk == 0) {
 		$ultimoID= $_GET['id'];
 			$archivoNombre= "Imagenes/".$ultimoID; 
 			guardarImagen($target_file,$ultimoID);
-			sleep(3);
-			$stmt = mysqli_prepare($conn, "CALL PROGRA_2.COLOCARFOTO (?, ?)");
-			mysqli_stmt_bind_param($stmt, 'si', $archivoNombre, $ultimoID);
-			if(mysqli_stmt_execute($stmt)){
-				echo "Se realizo con éxito";
+			//Observa si finalizo el registro de la foto			
+			while(true){
+				$archivo = fopen("Imagenes/finalizo.txt", "r") or die("Unable to open file!");
+				$finalizo= fread($archivo,filesize("Imagenes/finalizo.txt"));
+				fclose($archivo);
+				if($finalizo == 1 or $finalizo == 2){
+					break;
+				}
+			}
+			if($finalizo == 1){
+				$stmt = mysqli_prepare($conn, "CALL PROGRA_2.COLOCARFOTO (?, ?)");
+				mysqli_stmt_bind_param($stmt, 'si', $archivoNombre, $ultimoID);
+				if(mysqli_stmt_execute($stmt)){
+					echo "Se realizo con éxito";
+					
+				}
+				else{
+					echo "Error al cargar la imagen";
+				}
 				echo "<script>alert(\"La foto se agregó con éxito\")</script>";
 			}
 			else{
-				echo "Error al cargar la imagen";
+				echo "<script>alert(\"Hubo un error durante el registro\")</script>";
 			}
-			
     } else {
         echo "Hubo un error durante la cargar.";
     }

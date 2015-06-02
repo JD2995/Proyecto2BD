@@ -141,6 +141,7 @@ function cambioEspecie(genero)
 //Función para mostrar preview de la imagen a subir
 function mostrarPreview(input) {
 	if (input.files && input.files[0]) {
+		
 		var reader = new FileReader();
 
 		reader.onload = function (e) {
@@ -148,7 +149,25 @@ function mostrarPreview(input) {
 				.attr('src', e.target.result)
 		};
 		reader.readAsDataURL(input.files[0]);
+		localStorage.setItem("imagen", $input.files[0]);
 	}
+}
+
+//Función que obtiene el código Base64 de la imagen
+function obtenerBase64(img) {
+    // Crea un elemento canvas vacío
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    // Copia los contenidos de la imagen al canvas
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+	// Obtiene el url data para la imagen
+    var dataURL = canvas.toDataURL("image/png");
+
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 }
 
 //Función que registrar la foto en la BD

@@ -64,9 +64,11 @@
 		$stmt->execute();
 		if (!($resul = $conn->query("CALL PROGRA_2.INSERTARFOTO(@estado,@persona,@especie)"))) {
 			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+			return false;
 		}
 		else{
 			echo "Éxito";
+			return true;
 		}
 		
 	}
@@ -198,5 +200,9 @@
 			}
 			return $arrayEspecie;
 		}
+	}
+	
+	function setGlobal($nombre,$variable){
+		$GLOBALS[$nombre]=$variable;
 	}
 ?>

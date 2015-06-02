@@ -145,7 +145,8 @@
 		</div>
 	<script>
 	//Ejecuta la primera selección de los catálogos
-		cambioOrden(document.catalogos.clase.options[0].value)
+		cambioOrden(document.catalogos.clase.options[0].value);
+		
 	</script>
 	
 	</body>
