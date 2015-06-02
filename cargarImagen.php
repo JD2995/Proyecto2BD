@@ -58,6 +58,10 @@ if ($uploadOk == 0) {
     } else {
         echo "Hubo un error durante la cargar.";
     }
+	$archivo= "Imagenes/finalizo.txt";
+	if (file_exists($archivo)) {
+		unlink($archivo);
+	}
 	echo "<script>
 	window.location = 'index.php';
 	</script>";

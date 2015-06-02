@@ -80,7 +80,10 @@
 				$tupla= $resul->fetch_array(MYSQLI_BOTH);
 				$ultimoID= $tupla[0];
 			}
-			echo $ultimoID;
+			$archivo= "Imagenes/finalizo.txt";
+			if (file_exists($archivo)) {
+				unlink($archivo);
+			}
 		?>
 		
 		<div class="row">
