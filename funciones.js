@@ -191,5 +191,4 @@ function registrarFoto(){
 		success: function(result){
 		}
 	});
-	
 }

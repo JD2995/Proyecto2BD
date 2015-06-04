@@ -202,7 +202,232 @@
 		}
 	}
 	
-	function setGlobal($nombre,$variable){
-		$GLOBALS[$nombre]=$variable;
+	/*Autor: Javier Rivas
+	Fecha: 02/06/15
+	Descripción: Función que obtiene la lista de ornítologos
+	Entrada: Ninguna
+	Salida: Array con los ornitólogos obtenidos*/
+	function obtenerOrnitologos(){
+		$arrayPersonas= array();
+		$conn= $GLOBALS['conn'];
+		if (!($resul = $conn->query("CALL PROGRA_2.GETORNITOLOGOS()"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$arrayPersona= array();
+				$cantFotos= obtenerCantFotos($tupla[0]);
+				//Ingresa dentro de un array los datos de una persona
+				array_push($arrayPersona,$tupla[0]);
+				array_push($arrayPersona,$tupla[1]);
+				array_push($arrayPersona,$tupla[2]);
+				array_push($arrayPersona,$tupla[3]);
+				array_push($arrayPersona,$cantFotos);
+				array_push($arrayPersona,$tupla[4]);
+				//Ingresa a la persona en la lista de personas
+				array_push($arrayPersonas,$arrayPersona);
+			}
+			return $arrayPersonas;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de ornítologos filtrado por nombre
+	Entrada: Ninguna
+	Salida: Array con los ornitólogos obtenidos*/
+	function obtenerOrnitologosNombre($nombre){
+		$arrayPersonas= array();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @filtro := ?');
+		$stmt->bind_param('s', $nombre);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETORNITOLOGOSNOMBRE(@filtro)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$arrayPersona= array();
+				$cantFotos= obtenerCantFotos($tupla[0]);
+				//Ingresa dentro de un array los datos de una persona
+				array_push($arrayPersona,$tupla[0]);
+				array_push($arrayPersona,$tupla[1]);
+				array_push($arrayPersona,$tupla[2]);
+				array_push($arrayPersona,$tupla[3]);
+				array_push($arrayPersona,$cantFotos);
+				array_push($arrayPersona,$tupla[4]);
+				//Ingresa a la persona en la lista de personas
+				array_push($arrayPersonas,$arrayPersona);
+			}
+			return $arrayPersonas;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de ornítologos filtrado por apellido
+	Entrada: Ninguna
+	Salida: Array con los ornitólogos obtenidos*/
+	function obtenerOrnitologosApellido($apellido){
+		$arrayPersonas= array();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @filtro := ?');
+		$stmt->bind_param('s', $apellido);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETORNITOLOGOSAPELLIDO(@filtro)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$arrayPersona= array();
+				$cantFotos= obtenerCantFotos($tupla[0]);
+				//Ingresa dentro de un array los datos de una persona
+				array_push($arrayPersona,$tupla[0]);
+				array_push($arrayPersona,$tupla[1]);
+				array_push($arrayPersona,$tupla[2]);
+				array_push($arrayPersona,$tupla[3]);
+				array_push($arrayPersona,$cantFotos);
+				array_push($arrayPersona,$tupla[4]);
+				//Ingresa a la persona en la lista de personas
+				array_push($arrayPersonas,$arrayPersona);
+			}
+			return $arrayPersonas;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de ornítologos filtrado por apellido
+	Entrada: Ninguna
+	Salida: Array con los ornitólogos obtenidos*/
+	function obtenerOrnitologosCorreo($correo){
+		$arrayPersonas= array();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @filtro := ?');
+		$stmt->bind_param('s', $correo);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETORNITOLOGOSCORREO(@filtro)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$arrayPersona= array();
+				$cantFotos= obtenerCantFotos($tupla[0]);
+				//Ingresa dentro de un array los datos de una persona
+				array_push($arrayPersona,$tupla[0]);
+				array_push($arrayPersona,$tupla[1]);
+				array_push($arrayPersona,$tupla[2]);
+				array_push($arrayPersona,$tupla[3]);
+				array_push($arrayPersona,$cantFotos);
+				array_push($arrayPersona,$tupla[4]);
+				//Ingresa a la persona en la lista de personas
+				array_push($arrayPersonas,$arrayPersona);
+			}
+			return $arrayPersonas;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 03/06/15
+	Descripción: Función que estable la conexión con la BD
+	Entrada: Ninguna
+	Salida: Ninguna*/
+	function establecerConexion(){
+		//Conexión con mysql
+		$servername = "localhost";
+		$username = "PROGRA_2";
+		$password = "progra_2";
+		// Create conexión
+		$conn = new mysqli($servername, $username, $password);
+		// Chequear conexión
+		if ($conn->connect_error) {
+			die("Connection failed: " . $conn->connect_error);
+		}
+		$GLOBALS['conn']= $conn;
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 02/06/15
+	Descripción: Función que obtiene cantidad de fotos por persona
+	Entrada: ID de persona
+	Salida: Cantidad de fotos*/
+	function obtenerCantFotos($persona_id){
+		establecerConexion();	//Reestablece la conexión
+		$conn= $GLOBALS['conn'];
+		$cantFotos= 0;
+		$stmt = $conn->prepare('SET @id := ?');
+		$stmt->bind_param('i', $persona_id);
+		$stmt->execute();
+		if (!($resul = $conn->query("SELECT PROGRA_2.GETCANTFOTOPERSONA(@id)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$cantFotos= $tupla[0];
+			}
+			return $cantFotos;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 02/06/15
+	Descripción: Función que obtiene los datos de una persona
+	Entrada: ID de persona
+	Salida: Array con los datos de la persona*/
+	function obtenerPersona($persona_id){
+		$conn= $GLOBALS['conn'];
+		$arrayPersona= array();
+		$stmt = $conn->prepare('SET @id := ?');
+		$stmt->bind_param('i', $persona_id);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETPERSONA(@id)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$persona= array();
+				array_push($persona,$tupla[0]);
+				array_push($persona,$tupla[1]);
+				array_push($persona,$tupla[2]);
+				array_push($persona,$tupla[3]);
+				array_push($persona,$tupla[4]);
+				array_push($arrayPersona,$persona);
+			}
+			return $arrayPersona;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 02/06/15
+	Descripción: Función que obtiene las fotos de una persona
+	Entrada: ID de persona
+	Salida: Array con las fotos*/
+	function obtenerFotosPersona($persona_id){
+		establecerConexion();
+		$conn= $GLOBALS['conn'];
+		$arrayFoto= array();
+		$stmt = $conn->prepare('SET @id := ?');
+		$stmt->bind_param('i', $persona_id);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETFOTOSPERSONA(@id)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$foto= array();
+				array_push($foto,$tupla[0]);
+				array_push($foto,$tupla[1]);
+				array_push($foto,$tupla[2]);
+				array_push($arrayFoto,$foto);
+			}
+			return $arrayFoto;
+		}
 	}
 ?>
