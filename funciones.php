@@ -332,6 +332,135 @@
 	}
 	
 	/*Autor: Javier Rivas
+	Fecha: 02/06/15
+	Descripción: Función que obtiene la lista de aficionados
+	Entrada: Ninguna
+	Salida: Array con los aficionados obtenidos*/
+	function obtenerAficionados(){
+		$arrayPersonas= array();
+		$conn= $GLOBALS['conn'];
+		if (!($resul = $conn->query("CALL PROGRA_2.GETAFICIONADOS()"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$arrayPersona= array();
+				$cantFotos= obtenerCantFotos($tupla[0]);
+				//Ingresa dentro de un array los datos de una persona
+				array_push($arrayPersona,$tupla[0]);
+				array_push($arrayPersona,$tupla[1]);
+				array_push($arrayPersona,$tupla[2]);
+				array_push($arrayPersona,$tupla[3]);
+				array_push($arrayPersona,$cantFotos);
+				array_push($arrayPersona,$tupla[4]);
+				//Ingresa a la persona en la lista de personas
+				array_push($arrayPersonas,$arrayPersona);
+			}
+			return $arrayPersonas;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de aficionados filtrado por nombre
+	Entrada: Ninguna
+	Salida: Array con los aficionados obtenidos*/
+	function obtenerAficionadosNombre($nombre){
+		$arrayPersonas= array();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @filtro := ?');
+		$stmt->bind_param('s', $nombre);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETAFICIONADOSNOMBRE(@filtro)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$arrayPersona= array();
+				$cantFotos= obtenerCantFotos($tupla[0]);
+				//Ingresa dentro de un array los datos de una persona
+				array_push($arrayPersona,$tupla[0]);
+				array_push($arrayPersona,$tupla[1]);
+				array_push($arrayPersona,$tupla[2]);
+				array_push($arrayPersona,$tupla[3]);
+				array_push($arrayPersona,$cantFotos);
+				array_push($arrayPersona,$tupla[4]);
+				//Ingresa a la persona en la lista de personas
+				array_push($arrayPersonas,$arrayPersona);
+			}
+			return $arrayPersonas;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de aficionados filtrado por apellido
+	Entrada: Ninguna
+	Salida: Array con los aficionados obtenidos*/
+	function obtenerAficionadosApellido($apellido){
+		$arrayPersonas= array();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @filtro := ?');
+		$stmt->bind_param('s', $apellido);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETAFICIONADOSAPELLIDO(@filtro)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$arrayPersona= array();
+				$cantFotos= obtenerCantFotos($tupla[0]);
+				//Ingresa dentro de un array los datos de una persona
+				array_push($arrayPersona,$tupla[0]);
+				array_push($arrayPersona,$tupla[1]);
+				array_push($arrayPersona,$tupla[2]);
+				array_push($arrayPersona,$tupla[3]);
+				array_push($arrayPersona,$cantFotos);
+				array_push($arrayPersona,$tupla[4]);
+				//Ingresa a la persona en la lista de personas
+				array_push($arrayPersonas,$arrayPersona);
+			}
+			return $arrayPersonas;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de aficionados filtrado por apellido
+	Entrada: Ninguna
+	Salida: Array con los aficionados obtenidos*/
+	function obtenerAficionadosCorreo($correo){
+		$arrayPersonas= array();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @filtro := ?');
+		$stmt->bind_param('s', $correo);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETAFICIONADOSCORREO(@filtro)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$arrayPersona= array();
+				$cantFotos= obtenerCantFotos($tupla[0]);
+				//Ingresa dentro de un array los datos de una persona
+				array_push($arrayPersona,$tupla[0]);
+				array_push($arrayPersona,$tupla[1]);
+				array_push($arrayPersona,$tupla[2]);
+				array_push($arrayPersona,$tupla[3]);
+				array_push($arrayPersona,$cantFotos);
+				array_push($arrayPersona,$tupla[4]);
+				//Ingresa a la persona en la lista de personas
+				array_push($arrayPersonas,$arrayPersona);
+			}
+			return $arrayPersonas;
+		}
+	}
+	
+	/*Autor: Javier Rivas
 	Fecha: 03/06/15
 	Descripción: Función que estable la conexión con la BD
 	Entrada: Ninguna
