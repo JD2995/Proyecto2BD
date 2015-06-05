@@ -461,6 +461,34 @@
 	}
 	
 	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de fotos de aves
+	Entrada: Ninguna
+	Salida: Array con las fotos de las aves*/
+	function obtenerAves(){
+		$arrayFotos= array();
+		$conn= $GLOBALS['conn'];
+		if (!($resul = $conn->query("CALL PROGRA_2.GETAVES()"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$Foto= array();
+				//Ingresa dentro de un array los datos de una persona
+				array_push($Foto,$tupla[0]);
+				array_push($Foto,$tupla[1]);
+				array_push($Foto,$tupla[2]);
+				array_push($Foto,$tupla[3]);
+				array_push($Foto,$tupla[4]);
+				//Ingresa a la persona en la lista de personas
+				array_push($arrayFotos,$Foto);
+			}
+			return $arrayFotos;
+		}
+	}
+	
+	/*Autor: Javier Rivas
 	Fecha: 03/06/15
 	Descripción: Función que estable la conexión con la BD
 	Entrada: Ninguna
@@ -559,4 +587,103 @@
 			return $arrayFoto;
 		}
 	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene los datos de la ave de la foto
+	Entrada: ID de la foto
+	Salida: Ninguna*/
+	function obtenerInfoAve($foto_id){
+		$arrayFoto= array();
+		establecerConexion();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @id := ?');
+		$stmt->bind_param('i', $foto_id);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETINFOAVE(@id)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$foto= array();
+				array_push($foto,$tupla[0]);
+				array_push($foto,$tupla[1]);
+				array_push($foto,$tupla[2]);
+				array_push($foto,$tupla[3]);
+				array_push($foto,$tupla[4]);
+				array_push($foto,$tupla[5]);
+				array_push($foto,$tupla[6]);
+				array_push($foto,$tupla[7]);
+				array_push($foto,$tupla[8]);
+				array_push($foto,$tupla[9]);
+				array_push($foto,$tupla[10]);
+				array_push($foto,$tupla[11]);
+				array_push($foto,$tupla[12]);
+				array_push($foto,$tupla[13]);
+				array_push($arrayFoto,$foto);
+			}
+			return $arrayFoto;
+		}	
+	}
+	
+	function imprimirColumna($nombre,$elemento){
+		echo "<tr>".
+		"<td align=\"right\">".
+		$nombre.": </td>".
+		"<td>".$elemento."</td></tr>";
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que crea el modal de una foto
+	Entrada: ID de la foto, ruta de la imagen
+	Salida: Ninguna*/
+	function crearModalFoto($foto_id,$imagen){
+		$infoAve= obtenerInfoAve($foto_id);
+		echo "<div id=\"foto".$foto_id."\" class=\"modal modal-wide fade\">".
+		"<div class=\"modal-dialog\">".
+		"<div class=\"modal-content\">".
+		"<div class=\"modal-header\">".
+		"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" arial-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>".
+		"<h4 class=\"modal-title\" id=\"myModalLabel\">Información de la fotografía</h4>".
+		"</div>".
+		"<div class=\"modal-body\">".
+		"<div class=\"row\">".
+		"<div class=\"col-sm-1\"></div>".
+		"<div class=\"col-xs-5 col-md-5\">".
+		"<div class=\"thumbnail\">".
+		"<img src=\"".$imagen.".php\">".
+		"</div>".
+		"</div>".
+		"</div>".
+		"<div class=\"row\">".
+		"<div class=\"col-sm-3\">".
+		"<table class=\"table\">";
+		imprimirColumna("Nombre común",$infoAve[0][0]);
+		imprimirColumna("Orden",$infoAve[0][2]);
+		imprimirColumna("Especie",$infoAve[0][5]);
+		imprimirColumna("Cantidad de Huevos",$infoAve[0][8]);
+		imprimirColumna("Alimentación",$infoAve[0][11]);
+		echo "</table></div>".
+		"<div class=\"col-sm-3\">".
+		"<table class=\"table\">";
+		imprimirColumna("Nombre inglés",$infoAve[0][1]);
+		imprimirColumna("Familia",$infoAve[0][3]);
+		imprimirColumna("Tipo de pico",$infoAve[0][6]);
+		imprimirColumna("Zona de vida",$infoAve[0][9]);
+		imprimirColumna("Subido por",$infoAve[0][12]);
+		echo "</table></div>".
+		"<div class=\"col-sm-3\">".
+		"<table class=\"table\">";
+		imprimirColumna("Nombre científico",$infoAve[0][4]." ".$infoAve[0][5]);
+		imprimirColumna("Género",$infoAve[0][4]);
+		imprimirColumna("Colores",$infoAve[0][7]);
+		imprimirColumna("Tamaño",$infoAve[0][10]);
+		imprimirColumna("Subido el",$infoAve[0][13]);
+		echo "</table></div></div></div>".
+		"<div class=\"modal-footer\">".
+		"<button class=\"btn btn-primary\" data-dismiss=\"modal\" onclick=\"abrirModal('".$imagen.".php')\"> Ver imagen</button>".
+		"</div></div></div></div>";
+	}	
 ?>

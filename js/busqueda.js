@@ -10,6 +10,7 @@ function verPerfil(persona_id,tipo){
 	window.location = 'perfilPersona.php?id='+persona_id+"&tipo="+tipo_nombre;
 }
 
+//Función que abre el modal de foto y muestra la foto del ave
 function abrirModal(fuente){
 	var modalObj = $(modalFoto).modal(); // initialize
 	$("#imagen").attr("src",fuente);

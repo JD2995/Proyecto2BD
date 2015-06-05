@@ -1,15 +1,10 @@
 <?php
-	/*
-	Autor: Javier Rivas Lozano
-	Fecha: 01/06/15 
-	*/
 	include ('funciones.php');
-	$datosPersona= obtenerPersona($_GET['id']);
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-	<title><?php echo $datosPersona[0][0]." ".$datosPersona[0][1]; ?></title>
+	<title>Búsqueda por Ornitólogo</title>
 	<head lang="en">
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,10 +37,16 @@
 			width: 500px;
 			height: 400px;
 		}
+		.modal.modal-wide .modal-dialog {
+		  width: 70%;
+		}
+		.modal-wide .modal-body {
+		  overflow-y: auto;
+		}
 		</style>
 	</head>
 	<body>
-		<script src="funciones.js"></script>
+		
 		<nav class="navbar navbar-fixed-top navbar-inverse">
 			<div class="container">
 				<div class="navbar-header">
@@ -83,131 +84,46 @@
 			</div><!-- /.container -->
 		</nav><!-- /.navbar -->
 		
-		<?php
-			$fotosPersona= obtenerFotosPersona($_GET['id']);
-			$apellidos= array();
-			$indice= 0;
-			while($indice < count($datosPersona)){
-				if(!in_array($datosPersona[$indice][1],$apellidos)){
-					array_push($apellidos,$datosPersona[$indice][1]);
-				}
-				$indice++;
-			}
-			$apellidos= array();
-			$indice= 0;
-			while($indice < count($datosPersona)){
-				if(!in_array($datosPersona[$indice][1],$apellidos)){
-					array_push($apellidos,$datosPersona[$indice][1]);
-				}
-				$indice++;
-			}
-			$telefonos= array();
-			$indice= 0;
-			while($indice < count($datosPersona)){
-				if(!in_array($datosPersona[$indice][3],$telefonos)){
-					array_push($telefonos,$datosPersona[$indice][3]);
-				}
-				$indice++;
-			}
-		?>
+		<div class="container">
+			<div class="row row-offcanvas row-offcanvas-right">
+				<div class="form-group">
+			  <!--<label for etiqueta ="titulo">Registrate!</label>-->
+					<div class="container">
+						<div class="page-header">
+							<center><h2 style="color:#6E6E6E">Fotografías de Aves</h2></center>
+						</div>
+					</div>	
 		
-		<div class= "container">
-			<h1 style="color:#6E6E6E">Información personal</h1>
-			<br>
-			<div class="row">
-				<div class="col-sm-4">
-					<table>
-					<tr>
-						<td align="right"><span style='font-weight:bold;'>Nombre:</span></td>
-						<td>
-						<?php
-							echo "&nbsp&nbsp".$datosPersona[0][0];
-						?>
-						</td>
-					</tr>
-					<tr></tr>
-					<tr>
-						<td align="right"><span style='font-weight:bold;'>Apellidos:</span></td>
-						<?php
-						$indice= 0;
-						while($indice < count($apellidos)){
-							if($indice == 0){
-								echo "<td>&nbsp&nbsp".$apellidos[$indice]."</td></tr>";
-							}
-							else{
-								echo "<tr><td></td>".
-								"<td>&nbsp&nbsp".$apellidos[$indice]."</td></tr>";
-							}
-							$indice++;
-						}
-						?>
-					<tr>
-						<td align="right"><span style='font-weight:bold;'>Correo electrónico:</span></td>
-						<td><?php echo "&nbsp&nbsp".$datosPersona[0][2];?></td>
-					</tr>
-					</table>
-				</div>
-				<div class="col-sm-4">
-					<table>
-					<tr>
-						<td align="right"><span style='font-weight:bold;'>Tipo de usuario:</span></td>
-						<td>
-						<?php
-							echo "&nbsp&nbsp".$_GET['tipo'];
-						?>
-						</td>
-					</tr>
-					<tr>
-						<td align="right"><span style='font-weight:bold;'>Teléfonos:</span></td>
-						<?php
-						$indice= 0;
-						while($indice < count($telefonos)){
-							if($indice == 0){
-								echo "<td>&nbsp&nbsp".$telefonos[$indice]."</td></tr>";
-							}
-							else{
-								echo "<tr><td></td>".
-								"<td>&nbsp&nbsp".$telefonos[$indice]."</td></tr>";
-							}
-							$indice++;
-						}
-						?>
-					<tr>
-						<td align="right"><span style='font-weight:bold;'>Cantidad de fotos:</span></td>
-						<td><?php echo "&nbsp&nbsp".$datosPersona[0][4];?>
-					</tr>
-					</table>
-				</div>
-			</div>
+		<form>
+			<div class="form-group">
+		<label class="col-lg-2 control-label">Búsqueda por:</label>
+		<div class="col-lg-10">
+		<select class="form-control" id= "tipos" name = "tipos">
+			<option value="Seleccione opcion">Seleccione opci&oacute;n</option>
+				<BR>
+			<?php
+			$array = array("Nombre", "Apellido", "Correo");
+				$res = count($array);
+					for($i =0; $i<$res;$i++)
+					{
+							echo "<option value = ".$array[$i].">";	
+							echo "<label>".$array[$i]."</label>";
+					}	
+			?>
+		</select>
+		</div>
 		</div>
 		
-		<br>	
-		<hr>
-		
-		<div class="container">
-			<h1 style="color:#6E6E6E">Fotografías subidas</h1>
-			<br>
-			<?php
-				$indice= 0;
-				while($indice < count($fotosPersona)){
-					if($indice == 0){
-						print "<div class=\"row\">";
-					}
-					//Si llega al final de la fila de thumbnails
-					if(is_int($indice/4) && $indice!=0){
-						print "</div><div class=\"row\">";
-					}
-					
-						print "<div class=\"col-xs-2 col-md-3\">
-							<a href=\"#\" class=\"thumbnail\" title=\"Nombre: ".$fotosPersona[$indice][1]." ".$fotosPersona[$indice][2]."\">
-								<img src=\"".$fotosPersona[$indice][0].".php\" onclick=\"abrirModal('".$fotosPersona[$indice][0].".php')\">
-							</a>
-							</div>";
-						$indice++;
-					
-				}
-				print "</div>";
-			?>
+		<form class="navbar-form navbar-left" role="search">
+		  <div class="form-group">
+			  <BR>
+			  <BR>
+			  <BR>
+			<input type="text" class="form-control" id="buscar" name="buscar" placeholder="Palabra clave">
+		  </div>
+		  <button type="submit" class="btn btn-default">Buscar</button>
+		</form>
+		</div>
 		</div>
 		
 		<!-- Creación de modal para mostrar foto -->
@@ -225,6 +141,33 @@
 					</div>
 				</div>
 		</div>
+		
+		<!--Colocación de las imágenes-->
+		<div class="container">
+			<br>
+			<?php
+				$fotosAves= obtenerAves();
+				$indice= 0;
+				while($indice < count($fotosAves)){
+					crearModalFoto($fotosAves[$indice][0],$fotosAves[$indice][1]);
+					if($indice == 0){
+						print "<div class=\"row\">";
+					}
+					//Si llega al final de la fila de thumbnails
+					if(is_int($indice/4) && $indice!=0){
+						print "</div><div class=\"row\">";
+					}
+					
+						print "<div class=\"col-xs-2 col-md-3\">
+							<a href=\"#foto".$fotosAves[$indice][0]."\" data-toggle=\"modal\" class=\"thumbnail\" title=\"Nombre: ".$fotosAves[$indice][2]." ".$fotosAves[$indice][3]."&#13;Subido por: ".$fotosAves[$indice][4]."\">
+								<img src=\"".$fotosAves[$indice][1].".php\">
+							</a>
+							</div>";
+						$indice++;
+					
+				}
+				print "</div>";
+			?>
 		</div>
 	</body>
 </html>
