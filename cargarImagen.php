@@ -33,12 +33,14 @@ if ($uploadOk == 0) {
 			guardarImagen($target_file,$ultimoID);
 			//Observa si finalizo el registro de la foto			
 			while(true){
-				$archivo = fopen("Imagenes/finalizo.txt", "r") or die("Unable to open file!");
-				$finalizo= fread($archivo,filesize("Imagenes/finalizo.txt"));
-				fclose($archivo);
-				if($finalizo == 1 or $finalizo == 2){
-					break;
-				}
+				$archivo = fopen("Imagenes/finalizo.txt", "r");
+				if($archivo != FALSE){
+					$finalizo= fread($archivo,filesize("Imagenes/finalizo.txt"));
+					fclose($archivo);
+					if($finalizo == 1 or $finalizo == 2){
+						break;
+					}
+				}				
 			}
 			if($finalizo == 1){
 				$stmt = mysqli_prepare($conn, "CALL PROGRA_2.COLOCARFOTO (?, ?)");

@@ -475,13 +475,292 @@
 			//Mientras haya elementos
 			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
 				$Foto= array();
-				//Ingresa dentro de un array los datos de una persona
+				//Ingresa dentro de un array los datos de la foto
 				array_push($Foto,$tupla[0]);
 				array_push($Foto,$tupla[1]);
 				array_push($Foto,$tupla[2]);
 				array_push($Foto,$tupla[3]);
 				array_push($Foto,$tupla[4]);
-				//Ingresa a la persona en la lista de personas
+				//Ingresa a la foto en la lista de fotos
+				array_push($arrayFotos,$Foto);
+			}
+			return $arrayFotos;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de fotos de aves por orden
+	Entrada: Orden a buscar
+	Salida: Array con las fotos de las aves filtrada*/
+	function obtenerAvesOrden($filtro){
+		$arrayFotos= array();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @filtro := ?');
+		$stmt->bind_param('s', $filtro);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETAVESORDEN(@filtro)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$Foto= array();
+				//Ingresa dentro de un array los datos de una foto
+				array_push($Foto,$tupla[0]);
+				array_push($Foto,$tupla[1]);
+				array_push($Foto,$tupla[2]);
+				array_push($Foto,$tupla[3]);
+				array_push($Foto,$tupla[4]);
+				//Ingresa a la foto en la lista de fotos
+				array_push($arrayFotos,$Foto);
+			}
+			return $arrayFotos;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de fotos de aves por familia
+	Entrada: Familia a buscar
+	Salida: Array con las fotos de las aves filtrada*/
+	function obtenerAvesFamilia($filtro){
+		$arrayFotos= array();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @filtro := ?');
+		$stmt->bind_param('s', $filtro);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETAVESFAMILIA(@filtro)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$Foto= array();
+				//Ingresa dentro de un array los datos de una foto
+				array_push($Foto,$tupla[0]);
+				array_push($Foto,$tupla[1]);
+				array_push($Foto,$tupla[2]);
+				array_push($Foto,$tupla[3]);
+				array_push($Foto,$tupla[4]);
+				//Ingresa a la foto en la lista de fotos
+				array_push($arrayFotos,$Foto);
+			}
+			return $arrayFotos;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de fotos de aves por génerp
+	Entrada: Género a buscar
+	Salida: Array con las fotos de las aves filtrada*/
+	function obtenerAvesGenero($filtro){
+		$arrayFotos= array();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @filtro := ?');
+		$stmt->bind_param('s', $filtro);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETAVESGENERO(@filtro)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$Foto= array();
+				//Ingresa dentro de un array los datos de una foto
+				array_push($Foto,$tupla[0]);
+				array_push($Foto,$tupla[1]);
+				array_push($Foto,$tupla[2]);
+				array_push($Foto,$tupla[3]);
+				array_push($Foto,$tupla[4]);
+				//Ingresa a la foto en la lista de fotos
+				array_push($arrayFotos,$Foto);
+			}
+			return $arrayFotos;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de fotos de aves por especie
+	Entrada: Especie a buscar
+	Salida: Array con las fotos de las aves filtrada*/
+	function obtenerAvesEspecie($filtro){
+		$arrayFotos= array();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @filtro := ?');
+		$stmt->bind_param('s', $filtro);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETAVESESPECIE(@filtro)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$Foto= array();
+				//Ingresa dentro de un array los datos de una foto
+				array_push($Foto,$tupla[0]);
+				array_push($Foto,$tupla[1]);
+				array_push($Foto,$tupla[2]);
+				array_push($Foto,$tupla[3]);
+				array_push($Foto,$tupla[4]);
+				//Ingresa a la foto en la lista de fotos
+				array_push($arrayFotos,$Foto);
+			}
+			return $arrayFotos;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de fotos de aves por pico
+	Entrada: Pico a buscar
+	Salida: Array con las fotos de las aves filtrada*/
+	function obtenerAvesPico($filtro){
+		$arrayFotos= array();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @filtro := ?');
+		$stmt->bind_param('s', $filtro);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETAVESPICO(@filtro)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$Foto= array();
+				//Ingresa dentro de un array los datos de una foto
+				array_push($Foto,$tupla[0]);
+				array_push($Foto,$tupla[1]);
+				array_push($Foto,$tupla[2]);
+				array_push($Foto,$tupla[3]);
+				array_push($Foto,$tupla[4]);
+				//Ingresa a la foto en la lista de fotos
+				array_push($arrayFotos,$Foto);
+			}
+			return $arrayFotos;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de fotos de aves por cantidad de huevos
+	Entrada: Cantidad de huevos a buscar
+	Salida: Array con las fotos de las aves filtrada*/
+	function obtenerAvesHuevos($filtro){
+		$arrayFotos= array();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @filtro := ?');
+		$stmt->bind_param('s', $filtro);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETAVESHUEVOS(@filtro)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$Foto= array();
+				//Ingresa dentro de un array los datos de una foto
+				array_push($Foto,$tupla[0]);
+				array_push($Foto,$tupla[1]);
+				array_push($Foto,$tupla[2]);
+				array_push($Foto,$tupla[3]);
+				array_push($Foto,$tupla[4]);
+				//Ingresa a la foto en la lista de fotos
+				array_push($arrayFotos,$Foto);
+			}
+			return $arrayFotos;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de fotos de aves por zona de vida
+	Entrada: Zona a buscar
+	Salida: Array con las fotos de las aves filtrada*/
+	function obtenerAvesZona($filtro){
+		$arrayFotos= array();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @filtro := ?');
+		$stmt->bind_param('s', $filtro);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETAVESZONA(@filtro)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$Foto= array();
+				//Ingresa dentro de un array los datos de una foto
+				array_push($Foto,$tupla[0]);
+				array_push($Foto,$tupla[1]);
+				array_push($Foto,$tupla[2]);
+				array_push($Foto,$tupla[3]);
+				array_push($Foto,$tupla[4]);
+				//Ingresa a la foto en la lista de fotos
+				array_push($arrayFotos,$Foto);
+			}
+			return $arrayFotos;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de fotos de aves por Tamaño
+	Entrada: Tamaño a buscar
+	Salida: Array con las fotos de las aves filtrada*/
+	function obtenerAvesTamaño($filtro){
+		$arrayFotos= array();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @filtro := ?');
+		$stmt->bind_param('s', $filtro);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETAVESTAMAÑO(@filtro)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$Foto= array();
+				//Ingresa dentro de un array los datos de una foto
+				array_push($Foto,$tupla[0]);
+				array_push($Foto,$tupla[1]);
+				array_push($Foto,$tupla[2]);
+				array_push($Foto,$tupla[3]);
+				array_push($Foto,$tupla[4]);
+				//Ingresa a la foto en la lista de fotos
+				array_push($arrayFotos,$Foto);
+			}
+			return $arrayFotos;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de fotos de aves por persona
+	Entrada: Persona a buscar
+	Salida: Array con las fotos de las aves filtrada*/
+	function obtenerAvesPersona($filtro){
+		$arrayFotos= array();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @filtro := ?');
+		$stmt->bind_param('s', $filtro);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETAVESPERSONA(@filtro)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$Foto= array();
+				//Ingresa dentro de un array los datos de una foto
+				array_push($Foto,$tupla[0]);
+				array_push($Foto,$tupla[1]);
+				array_push($Foto,$tupla[2]);
+				array_push($Foto,$tupla[3]);
+				array_push($Foto,$tupla[4]);
+				//Ingresa a la foto en la lista de fotos
 				array_push($arrayFotos,$Foto);
 			}
 			return $arrayFotos;
@@ -629,9 +908,30 @@
 	
 	function imprimirColumna($nombre,$elemento){
 		echo "<tr>".
-		"<td align=\"right\">".
-		$nombre.": </td>".
+		"<td align=\"right\"><span style='font-weight:bold;'>".
+		$nombre.": </span></td>".
 		"<td>".$elemento."</td></tr>";
+	}
+	
+	function imprimirColumnaMultiple($nombre,$arrayElemento,$indiceElemento){
+		$arrayEscritos= array();
+		if(count($arrayElemento) > 0){
+			echo "<tr>".
+			"<td align=\"right\"><span style='font-weight:bold;'>".
+			$nombre.": </span></td>".
+			"<td>".$arrayElemento[0][$indiceElemento]."</td></tr>";
+			array_push($arrayEscritos,$arrayElemento[0][$indiceElemento]);
+		}
+		$indice= 1;
+		while($indice < count($arrayElemento)){
+			if(!in_array($arrayElemento[$indice][$indiceElemento],$arrayEscritos)){
+				echo "<tr>".
+				"<td align=\"right\"></td>".
+				"<td>".$arrayElemento[$indice][$indiceElemento]."</td></tr>";
+				array_push($arrayEscritos,$arrayElemento[0][$indiceElemento]);
+			}
+			$indice++;
+		}	
 	}
 	
 	/*Autor: Javier Rivas
@@ -664,7 +964,7 @@
 		imprimirColumna("Orden",$infoAve[0][2]);
 		imprimirColumna("Especie",$infoAve[0][5]);
 		imprimirColumna("Cantidad de Huevos",$infoAve[0][8]);
-		imprimirColumna("Alimentación",$infoAve[0][11]);
+		imprimirColumnaMultiple("Alimentación",$infoAve,11);
 		echo "</table></div>".
 		"<div class=\"col-sm-3\">".
 		"<table class=\"table\">";
@@ -678,7 +978,7 @@
 		"<table class=\"table\">";
 		imprimirColumna("Nombre científico",$infoAve[0][4]." ".$infoAve[0][5]);
 		imprimirColumna("Género",$infoAve[0][4]);
-		imprimirColumna("Colores",$infoAve[0][7]);
+		imprimirColumnaMultiple("Colores",$infoAve,7);
 		imprimirColumna("Tamaño",$infoAve[0][10]);
 		imprimirColumna("Subido el",$infoAve[0][13]);
 		echo "</table></div></div></div>".
