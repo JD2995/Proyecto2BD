@@ -614,6 +614,37 @@
 	
 	/*Autor: Javier Rivas
 	Fecha: 04/06/15
+	Descripción: Función que obtiene la lista de fotos de aves por color
+	Entrada: Color a buscar
+	Salida: Array con las fotos de las aves filtrada*/
+	function obtenerAvesColor($filtro){
+		$arrayFotos= array();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @filtro := ?');
+		$stmt->bind_param('s', $filtro);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETAVESCOLOR(@filtro)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$Foto= array();
+				//Ingresa dentro de un array los datos de una foto
+				array_push($Foto,$tupla[0]);
+				array_push($Foto,$tupla[1]);
+				array_push($Foto,$tupla[2]);
+				array_push($Foto,$tupla[3]);
+				array_push($Foto,$tupla[4]);
+				//Ingresa a la foto en la lista de fotos
+				array_push($arrayFotos,$Foto);
+			}
+			return $arrayFotos;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 04/06/15
 	Descripción: Función que obtiene la lista de fotos de aves por pico
 	Entrada: Pico a buscar
 	Salida: Array con las fotos de las aves filtrada*/

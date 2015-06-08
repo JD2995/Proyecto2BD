@@ -33,8 +33,8 @@ if ($uploadOk == 0) {
 			guardarImagen($target_file,$ultimoID);
 			//Observa si finalizo el registro de la foto			
 			while(true){
-				$archivo = fopen("Imagenes/finalizo.txt", "r");
-				if($archivo != FALSE){
+				if(file_exists("Imagenes/finalizo.txt")){
+					$archivo = fopen("Imagenes/finalizo.txt", "r");
 					$finalizo= fread($archivo,filesize("Imagenes/finalizo.txt"));
 					fclose($archivo);
 					if($finalizo == 1 or $finalizo == 2){
@@ -65,7 +65,7 @@ if ($uploadOk == 0) {
 		unlink($archivo);
 	}
 	echo "<script>
-	window.location = 'index.php';
+	window.location = 'Inicio.php';
 	</script>";
 }
 ?>
