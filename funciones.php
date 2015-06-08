@@ -989,23 +989,19 @@
 	
 	function imprimirColumnaMultiple($nombre,$arrayElemento,$indiceElemento){
 		$arrayEscritos= array();
-		if(count($arrayElemento) > 0){
-			echo "<tr>".
-			"<td align=\"right\"><span style='font-weight:bold;'>".
-			$nombre.": </span></td>".
-			"<td>".$arrayElemento[0][$indiceElemento]."</td></tr>";
-			array_push($arrayEscritos,$arrayElemento[0][$indiceElemento]);
-		}
-		$indice= 1;
+		echo "<tr>".
+		"<td align=\"right\"><span style='font-weight:bold;'>".
+		$nombre.": </span></td>".
+		"<td>";
+		$indice= 0;
 		while($indice < count($arrayElemento)){
 			if(!in_array($arrayElemento[$indice][$indiceElemento],$arrayEscritos)){
-				echo "<tr>".
-				"<td align=\"right\"></td>".
-				"<td>".$arrayElemento[$indice][$indiceElemento]."</td></tr>";
-				array_push($arrayEscritos,$arrayElemento[0][$indiceElemento]);
+				echo $arrayElemento[$indice][$indiceElemento].", ";
+				array_push($arrayEscritos,$arrayElemento[$indice][$indiceElemento]);
 			}
 			$indice++;
 		}	
+		echo "</td></tr>";
 	}
 	
 	/*Autor: Javier Rivas
