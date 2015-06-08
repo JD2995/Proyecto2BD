@@ -768,6 +768,33 @@
 	}
 	
 	/*Autor: Javier Rivas
+	Fecha: 07/06/15
+	Descripción: Función que obtiene la bitácora de contraseñas
+	Entrada: Ninguna
+	Salida: Array con la bitácora*/
+	function obtenerBitacora(){
+		$arrayBitacora= array();
+		$conn= $GLOBALS['conn'];
+		if (!($resul = $conn->query("CALL PROGRA_2.OBTENERBITACORA()"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$bitacora= array();
+				//Ingresa dentro de un array los datos de la foto
+				array_push($bitacora,$tupla[0]);
+				array_push($bitacora,$tupla[1]);
+				array_push($bitacora,$tupla[2]);
+				array_push($bitacora,$tupla[3]);
+				//Ingresa a la foto en la lista de fotos
+				array_push($arrayBitacora,$bitacora);
+			}
+			return $arrayBitacora;
+		}
+	}
+	
+	/*Autor: Javier Rivas
 	Fecha: 03/06/15
 	Descripción: Función que estable la conexión con la BD
 	Entrada: Ninguna
@@ -807,6 +834,53 @@
 				$cantFotos= $tupla[0];
 			}
 			return $cantFotos;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 02/06/15
+	Descripción: Función que obtiene la contraseña de un usuario
+	Entrada: ID de persona
+	Salida: Contraseña desencriptada*/
+	function obtenerContrasena($persona_id){
+		$conn= $GLOBALS['conn'];
+		$contrasena;
+		$stmt = $conn->prepare('SET @id := ?');
+		$stmt->bind_param('i', $persona_id);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.GETCONTRASENA(@id)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+		}
+		else{
+			//Mientras haya elementos
+			while($tupla= $resul->fetch_array(MYSQLI_BOTH)){
+				$contrasena= $tupla[0];
+			}
+			return $contrasena;
+		}
+	}
+	
+	/*Autor: Javier Rivas
+	Fecha: 02/06/15
+	Descripción: Función que cambia la contraseña de un usuario
+	Entrada: Nueva contraseña
+			 ID de persona
+	Salida: Contraseña desencriptada*/
+	function actualizarContrasena($nuevaContrasena,$persona_id){
+		establecerConexion();
+		$conn= $GLOBALS['conn'];
+		$stmt = $conn->prepare('SET @contrasena := ?');
+		$stmt->bind_param('s', $nuevaContrasena);
+		$stmt->execute();
+		$stmt = $conn->prepare('SET @id := ?');
+		$stmt->bind_param('i', $persona_id);
+		$stmt->execute();
+		if (!($resul = $conn->query("CALL PROGRA_2.ACTUALIZARCONTRASENA(@contrasena,@id)"))) {
+			echo "SELECT failed: (" . $conn->errno . ") " . $conn->error;
+			return 1;
+		}
+		else{
+			return 0;
 		}
 	}
 	

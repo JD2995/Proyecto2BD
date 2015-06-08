@@ -1,15 +1,14 @@
 <?php
 	/*
 	Autor: Javier Rivas Lozano
-	Fecha: 01/06/15 
+	Fecha: 07/06/15 
 	*/
 	include ('funciones.php');
-	$datosPersona= obtenerPersona($_GET['id']);
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-	<title><?php echo $datosPersona[0][0]." ".$datosPersona[0][1]; ?></title>
+	<title>Configuración de los datos de la cuenta</title>
 	<head lang="en">
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,21 +30,8 @@
 		<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 		<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 		<script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-		<style>
-		.thumbnail{
-			width: 200px;
-			height: 150px;
-			overflow-x: hidden;
-			overflow-y: hidden;
-		}
-		.thumbnail#t1{
-			width: 500px;
-			height: 400px;
-		}
-		</style>
 	</head>
 	<body>
-		<script src="funciones.js"></script>
 		<nav class="navbar navbar-fixed-top navbar-inverse">
 			<div class="container">
 				<div class="navbar-header">
@@ -84,7 +70,7 @@
 		</nav><!-- /.navbar -->
 		
 		<?php
-			$fotosPersona= obtenerFotosPersona($_GET['id']);
+			$datosPersona= obtenerPersona(1);
 			$apellidos= array();
 			$indice= 0;
 			while($indice < count($datosPersona)){
@@ -102,121 +88,36 @@
 				$indice++;
 			}
 		?>
-		
-		<div class= "container">
-			<h1 style="color:#6E6E6E">Información personal</h1>
+		<form role="form" method="post" action="cambiandoContrasena.php">
+		<div class="container">
+			<h2 style="color:#6E6E6E">Cambiar contraseña</h2>
+			<br>
+			<!-- Contraseña-->
+			<div class="row">
+				<div class="col-sm-2">
+					<p align="right"><b>Actual contraseña : </b></p>
+				</div>
+				<div class="col-sm-5">
+					<input type="password" class="form-control" id="actual" name="actual">
+				</div>
+			</div>
 			<br>
 			<div class="row">
-				<div class="col-sm-4">
-					<table>
-					<tr>
-						<td align="right"><span style='font-weight:bold;'>Nombre:</span></td>
-						<td>
-						<?php
-							echo "&nbsp&nbsp".$datosPersona[0][0];
-						?>
-						</td>
-					</tr>
-					<tr></tr>
-					<tr>
-						<td align="right"><span style='font-weight:bold;'>Apellidos:</span></td>
-						<?php
-						$indice= 0;
-						while($indice < count($apellidos)){
-							if($indice == 0){
-								echo "<td>&nbsp&nbsp".$apellidos[$indice]."</td></tr>";
-							}
-							else{
-								echo "<tr><td></td>".
-								"<td>&nbsp&nbsp".$apellidos[$indice]."</td></tr>";
-							}
-							$indice++;
-						}
-						?>
-					<tr>
-						<td align="right"><span style='font-weight:bold;'>Correo electrónico:</span></td>
-						<td><?php echo "&nbsp&nbsp".$datosPersona[0][2];?></td>
-					</tr>
-					</table>
+				<div class="col-sm-2">
+					<p align="right"><b>Nueva contraseña : </b></p>
 				</div>
-				<div class="col-sm-4">
-					<table>
-					<tr>
-						<td align="right"><span style='font-weight:bold;'>Tipo de usuario:</span></td>
-						<td>
-						<?php
-							echo "&nbsp&nbsp".$_GET['tipo'];
-						?>
-						</td>
-					</tr>
-					<tr>
-						<td align="right"><span style='font-weight:bold;'>Teléfonos:</span></td>
-						<?php
-						$indice= 0;
-						while($indice < count($telefonos)){
-							if($indice == 0){
-								echo "<td>&nbsp&nbsp".$telefonos[$indice]."</td></tr>";
-							}
-							else{
-								echo "<tr><td></td>".
-								"<td>&nbsp&nbsp".$telefonos[$indice]."</td></tr>";
-							}
-							$indice++;
-						}
-						?>
-					<tr>
-						<td align="right"><span style='font-weight:bold;'>Cantidad de fotos:</span></td>
-						<td><?php echo "&nbsp&nbsp".$datosPersona[0][4];?>
-					</tr>
-					</table>
+				<div class="col-sm-5">
+					<input type="password" class="form-control" id="nueva" name="nueva">
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-5">
+					<input id="submit" name="submit" type="submit" value="Cambiar" class="btn btn-primary">
 				</div>
 			</div>
 		</div>
-		
-		<br>	
-		<hr>
-		
-		<div class="container">
-			<h1 style="color:#6E6E6E">Fotografías subidas</h1>
-			<br>
-			<?php
-				$indice= 0;
-				while($indice < count($fotosPersona)){
-					if($indice == 0){
-						print "<div class=\"row\">";
-					}
-					//Si llega al final de la fila de thumbnails
-					if(is_int($indice/4) && $indice!=0){
-						print "</div><div class=\"row\">";
-					}
-					
-						print "<div class=\"col-xs-2 col-md-3\">
-							<a href=\"#\" class=\"thumbnail\" title=\"Nombre: ".$fotosPersona[$indice][1]." ".$fotosPersona[$indice][2]."\">
-								<img src=\"".$fotosPersona[$indice][0].".php\" onclick=\"abrirModal('".$fotosPersona[$indice][0].".php')\">
-							</a>
-							</div>";
-						$indice++;
-					
-				}
-				print "</div>";
-			?>
-		</div>
-		
-		<!-- Creación de modal para mostrar foto -->
-		<div class="modal fade" id="modalFoto" name="modalFoto" role="dialog">
-			<div class="modal-dialog">
-			
-			  <!-- Modal content-->
-				<div class="modal-content">
-					<div class="col-sm-8">
-						<div class="thumbnail" id="t1">
-							<img id="imagen" src="Imagenes/31.php">
-						</div>
-							
-						</div>
-					</div>
-				</div>
-		</div>
-		</div>
+		</form>
 	</body>
 </html>
