@@ -4,7 +4,7 @@
 
 <!DOCTYPE html>
 <html lang="es">
-	<title>Búsqueda por fotografía</title>
+	<title>Mis mejores fotografías</title>
 	<head lang="es">
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -83,116 +83,27 @@
 				</div> <!-- fin div navbar-header --> 
 			</div><!-- /.container -->
 		</nav><!-- /.navbar -->
-
+		
+		
 		<div class="container">
 			<div class="row row-offcanvas row-offcanvas-right">
 				<div class="form-group">
 			  <!--<label for etiqueta ="titulo">Registrate!</label>-->
 					<div class="container">
 						<div class="page-header">
-							<center><h2 style="color:#6E6E6E">Fotografías de Aves</h2></center>
-						</div>
-					</div>	
-		
-		<form>
-			<div class="form-group">
-		<label class="col-lg-2 control-label">Búsqueda por:</label>
-		<div class="col-lg-10">
-		<select class="form-control" id= "tipos" name = "tipos">
-			<option value="Seleccione opcion">Seleccione opci&oacute;n</option>
-				<BR>
-			<?php
-			$array = array("Orden","Familia","Género","Especie","Tipo de pico","Color","Cantidad de huevos","Zona de vida","Tamaño","Persona");
-				$res = count($array);
-					for($i =0; $i<$res;$i++)
-					{
-							echo "<option value = ".$array[$i].">";	
-							echo "<label>".$array[$i]."</label>";
-					}	
-			?>
-		</select>
-		</div>
-		</div>
-		
-		<form class="navbar-form navbar-left" role="search">
-		  <div class="form-group">
-			  <BR>
-			  <BR>
-			  <BR>
-			<input type="text" class="form-control" id="buscar" name="buscar" placeholder="Palabra clave">
-		  </div>
-		  <button type="submit" class="btn btn-default">Buscar</button>
-		</form>
-		</div>
-		</div>
-		
-		<!-- Creación de modal para mostrar foto -->
-		<div class="modal fade" id="modalFoto" name="modalFoto" role="dialog">
-			<div class="modal-dialog">
-			
-			  <!-- Modal content-->
-				<div class="modal-content">
-					<div class="col-sm-8">
-						<div class="thumbnail" id="t1">
-							<img id="imagen" src="Imagenes/31.php">
-						</div>
-							
+							<center><h2 style="color:#6E6E6E">Mis mejores fotografías</h2></center>
 						</div>
 					</div>
 				</div>
+			</div>
 		</div>
+		
 		
 		<!--Colocación de las imágenes-->
 		<div class="container">
 			<br>
 			<?php
-				//Si encontro que se hizo un filtro
-				if(isset($_GET['tipos'])){
-					//Si la búsque no tiene ningún valor
-					if($_GET['buscar'] == ""){
-						$fotosAves= obtenerAves();
-					}
-					else{
-						//Obtiene los resultados dependiendo del tipo de búsqueda
-						if($_GET['tipos'] == "Orden"){
-							$fotosAves= obtenerAvesOrden($_GET['buscar']);
-						}
-						else if($_GET['tipos'] == "Familia"){
-							$fotosAves= obtenerAvesFamilia($_GET['buscar']);
-						}
-						else if($_GET['tipos'] == "Género"){
-							$fotosAves= obtenerAvesGenero($_GET['buscar']);
-						}
-						else if($_GET['tipos'] == "Especie"){
-							$fotosAves= obtenerAvesEspecie($_GET['buscar']);
-						}
-						else if($_GET['tipos'] == "Tipo"){
-							$fotosAves= obtenerAvesPico($_GET['buscar']);
-						}
-						else if($_GET['tipos'] == "Color"){
-							$fotosAves= obtenerAvesColor($_GET['buscar']);
-						}
-						else if($_GET['tipos'] == "Cantidad"){
-							$fotosAves= obtenerAvesHuevos($_GET['buscar']);
-						}
-						else if($_GET['tipos'] == "Zona"){
-							$fotosAves= obtenerAvesZona($_GET['buscar']);
-						}
-						else if($_GET['tipos'] == "Tamaño"){
-							$fotosAves= obtenerAvesTamaño($_GET['buscar']);
-						}
-						else if($_GET['tipos'] == "Persona"){
-							$fotosAves= obtenerAvesPersona($_GET['buscar']);
-						}
-						//Si no es un tipo de búsqueda valido
-						else{
-							$fotosAves= obtenerAves();
-						}
-					}
-				}
-				else{
-					$fotosAves= obtenerAves();
-				}
+				$fotosAves= obtenerAvesMejores(1);
 				
 				$indice= 0;
 				while($indice < count($fotosAves)){
