@@ -39,8 +39,8 @@
 			          </ul>
 			          <a class="navbar-brand" href="#">Asociaci&oacute;n de Ornitolog&iacute;a</a>
 			          <ul class="nav navbar-nav">
-			            <li class="active"><a href="Inicio.php">Inicio</a></li> <!-- Este link lo manda a la pagina de inicio, o sea, aqui mismo-->
-			            <li><a href="RegistroPersona.php">Registrarse</a></li>            <!-- Este link lo manda a la pagina de registro de usuario-->
+			            <li><a href="Inicio.php">Inicio</a></li>            <!-- Este link lo manda a la pagina de registro de usuario-->
+			            <li class="active"><a href="RegistroPersona.php">Registrarse</a></li>  
 			          </ul>
 			          <form class="navbar-form navbar-right" method="POST" action="login.php">
 			            <div class="form-group">

@@ -46,7 +46,7 @@
                       <span class=\"icon-bar\"></span>
                       <span class=\"icon-bar\"></span>
                     </button>
-                    <img class = \"nav navbar-nav\"src = \"Imagenes/logo.png\" height=\"42\" width=\"42\"/>
+                    <img class = \"nav navbar-nav\"src = \"Imagenes/logo.png\" height=\"50px\" width=\"50px\"/>
                     <a class=\"navbar-brand\" href=\"#\">Asociaci&oacute;n de Ornitolog&iacute;a</a>
                     <ul class=\"nav navbar-nav\">
                       <li class=\"active\"><a href=\"inicio.php\">Inicio</a></li>";
@@ -91,7 +91,7 @@
                       <span class=\"icon-bar\"></span>
                       <span class=\"icon-bar\"></span>
                     </button>
-                    <img class = \"nav navbar-nav\"src = \"Imagenes/logo.png\" height=\"42\" width=\"42\"/>
+                    <img class = \"nav navbar-nav\"src = \"Imagenes/logo.png\" height=\"50\" width=\"50\"/>
                     <p class = \"nav navbar-nav\"> \"   \"</p>
                     <a class=\"navbar-brand\" href=\"#\">Asociaci&oacute;n de Ornitolog&iacute;a</a>
                     <ul class=\"nav navbar-nav\">
@@ -116,12 +116,16 @@
     <div class="container">
       <div class="row row-offcanvas row-offcanvas-right">
 
-          <div class="col-xs-12 col-sm-9">
+          <div class="col-xs-11 col-sm-10">
               <p class="pull-right visible-xs">
                 <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
               </p>
               <div class="jumbotron">
-                <h1>Bienvenido!</h1>
+                <h1><font color="lime">Bienvenido!</font></h1>			
+                <p align="left">Un p&aacute;jaro es un animal vestido de plumas. Si tiene plumas es un p&aacute;jaro, si no tiene</p>
+                <p align="left">plumas no es un p&aacute;jaro. Las aves son una de las cinco clases de animales vertebrados,</p>
+                <p align="left">o sea los que tienen una columna vertebrada o espinoza.</p>
+                <h1><p align="left">Si deseas conocer más sobre aves, este es el lugar perfecto, s&oacute;lo ten&eacute;s que ingresar.</p><h1>
               </div>
               
             </div> <!-- end div col-xs-12 col-sm-9 -->
@@ -131,7 +135,9 @@
     </div>
     
    
-
+ 
+					        
+					   
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -168,9 +174,11 @@
     </script>
   </head>
   <body>
+   		<div class="row">
+					<div class="col-sm-1"></div>
 		  <div class="row row-offcanvas row-offcanvas-right">
 
-		   <div class="col-xs-12 col-sm-9">
+		   <div class="col-xs-12 col-sm-8">
 		    <a id="but_prev" href="#">PREV</a> | <a id="but_pause" href="#">PAUSE</a> | <a id="but_start" href="#">START</a> | <a id="but_next" href="#">NEXT</a> 
 		  
 		    <div class="carousel-container">
@@ -266,5 +274,8 @@
 		    </div>
 		  </div>
 		  </div>
+		   </div>
+				<div class="row"><br>
+		   </div>
 		  </body>
 		</html>
